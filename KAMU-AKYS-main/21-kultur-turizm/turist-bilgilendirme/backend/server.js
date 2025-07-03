@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import mongoose from 'mongoose';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpecs from './config/swagger.js';
 
 // Routes import
 import authRoutes from './routes/auth.js';
@@ -37,13 +39,25 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Swagger Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'Turist Bilgilendirme API Dokümantasyonu',
+  swaggerOptions: {
+    persistAuthorization: true,
+  },
+}));
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/turist-bilgilendirme', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('MongoDB bağlantısı başarılı'))
-.catch((err) => console.error('MongoDB bağlantı hatası:', err));
+.then(() => console.log('✅ MongoDB bağlantısı başarılı'))
+.catch((err) => {
+  console.error('❌ MongoDB bağlantı hatası:', err.message);
+  console.log('⚠️  Server MongoDB olmadan devam ediyor...');
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -55,12 +69,44 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/weather', weatherRoutes);
 
 // Health check endpoint
+/**
+ * @swagger
+ * /api/health:
+ *   get:
+ *     summary: API sağlık kontrolü
+ *     description: API'nin çalışma durumunu kontrol eder
+ *     tags: [Health Check]
+ *     responses:
+ *       200:
+ *         description: API başarıyla çalışıyor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 message:
+ *                   type: string
+ *                   example: Turist Bilgilendirme API çalışıyor
+ *                 version:
+ *                   type: string
+ *                   example: 1.0.0
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ *                 documentation:
+ *                   type: string
+ *                   example: http://localhost:5000/api-docs
+ */
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     message: 'Turist Bilgilendirme API çalışıyor',
     version: '1.0.0',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    documentation: `${req.protocol}://${req.get('host')}/api-docs`
   });
 });
 
@@ -82,6 +128,9 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server ${PORT} portunda çalışıyor`);
-  console.log(`Health check: http://localhost:${PORT}/api/health`);
+  console.log(`\n🚀 Turist Bilgilendirme API Server çalışıyor!`);
+  console.log(`📡 Port: ${PORT}`);
+  console.log(`🏥 Health Check: http://localhost:${PORT}/api/health`);
+  console.log(`📚 API Dokümantasyonu: http://localhost:${PORT}/api-docs`);
+  console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}\n`);
 }); 

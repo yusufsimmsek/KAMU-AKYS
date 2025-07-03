@@ -13,6 +13,82 @@ const generateToken = (userId) => {
   return jwt.sign({ userId }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRE });
 };
 
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Yeni kullanıcı kaydı
+ *     description: Sisteme yeni kullanıcı kaydı oluşturur
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstName
+ *               - lastName
+ *               - email
+ *               - password
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *                 minLength: 2
+ *                 maxLength: 50
+ *                 description: Kullanıcının adı
+ *                 example: Ahmet
+ *               lastName:
+ *                 type: string
+ *                 minLength: 2
+ *                 maxLength: 50
+ *                 description: Kullanıcının soyadı
+ *                 example: Yılmaz
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: Email adresi
+ *                 example: ahmet.yilmaz@example.com
+ *               password:
+ *                 type: string
+ *                 minLength: 6
+ *                 description: Şifre (en az bir küçük harf, bir büyük harf ve bir rakam içermelidir)
+ *                 example: Password123
+ *     responses:
+ *       201:
+ *         description: Kullanıcı başarıyla kaydedildi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Kayıt başarılı
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     user:
+ *                       $ref: '#/components/schemas/User'
+ *                     token:
+ *                       type: string
+ *                       description: JWT token
+ *       400:
+ *         description: Geçersiz veri veya email zaten kullanılıyor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Sunucu hatası
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 // Kullanıcı kaydı
 router.post('/register', [
   body('firstName')
@@ -75,6 +151,67 @@ router.post('/register', [
   }
 });
 
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Kullanıcı girişi
+ *     description: Email ve şifre ile sisteme giriş yapar
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: Email adresi
+ *                 example: ahmet.yilmaz@example.com
+ *               password:
+ *                 type: string
+ *                 description: Kullanıcı şifresi
+ *                 example: Password123
+ *     responses:
+ *       200:
+ *         description: Giriş başarılı
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Giriş başarılı
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     user:
+ *                       $ref: '#/components/schemas/User'
+ *                     token:
+ *                       type: string
+ *                       description: JWT token
+ *       401:
+ *         description: Geçersiz kimlik bilgileri veya devre dışı hesap
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Sunucu hatası
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 // Kullanıcı girişi
 router.post('/login', [
   body('email')
