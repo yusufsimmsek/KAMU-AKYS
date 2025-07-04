@@ -27,6 +27,7 @@ import Register from './pages/Auth/Register';
 import Profile from './pages/Profile';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import AdminTest from './pages/AdminTest';
 import NotFound from './pages/NotFound';
 
 // Styles
@@ -94,6 +95,7 @@ function App() {
                 {/* Other */}
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/admin-test" element={<AdminTest />} />
                 
                 {/* 404 */}
                 <Route path="*" element={<NotFound />} />

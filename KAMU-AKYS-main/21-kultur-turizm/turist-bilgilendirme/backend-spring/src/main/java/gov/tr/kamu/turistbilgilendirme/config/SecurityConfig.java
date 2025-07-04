@@ -80,13 +80,15 @@ public class SecurityConfig {
                     "/actuator/health",
                     "/swagger-ui/**",
                     "/swagger-ui.html",
+                    "/swagger-resources/**",
                     "/api-docs/**",
                     "/v3/api-docs/**",
-                    "/destinations/public/**",
-                    "/events/public/**",
-                    "/restaurants/public/**",
-                    "/accommodations/public/**",
-                    "/reviews/public/**",
+                    "/webjars/**",
+                    "/destinations/**",
+                    "/events/**",
+                    "/restaurants/**",
+                    "/accommodations/**",
+                    "/weather/**",
                     "/h2-console/**"
                 ).permitAll()
                 

@@ -78,8 +78,9 @@ public class AuthController {
             response.put("refreshToken", refreshToken);
             response.put("type", "Bearer");
             response.put("user", createUserResponse(user));
+            response.put("expiresIn", 7 * 24 * 60 * 60); // 7 gün saniye olarak
 
-            logger.info("Başarılı giriş: {}", loginRequest.getEmail());
+            logger.info("Login başarılı - kullanıcı: {}, token oluşturuldu", authentication.getName());
             return ResponseEntity.ok(response);
 
         } catch (BadCredentialsException e) {

@@ -54,19 +54,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             jwtToken = requestTokenHeader.substring(7);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+                logger.debug("JWT Token'dan kullanıcı adı alındı: {}", username);
             } catch (IllegalArgumentException e) {
                 logger.warn("JWT Token alınamadı: {}", e.getMessage());
+                return; // Filter chain'i durdurmayalım ama bu request için authentication yapma
             } catch (ExpiredJwtException e) {
                 logger.warn("JWT Token süresi dolmuş: {}", e.getMessage());
+                return; // Filter chain'i durdurmayalım ama bu request için authentication yapma
             } catch (MalformedJwtException e) {
                 logger.warn("JWT Token formatı geçersiz: {}", e.getMessage());
+                return; // Filter chain'i durdurmayalım ama bu request için authentication yapma
             } catch (SignatureException e) {
                 logger.warn("JWT Token signature hatası: {}", e.getMessage());
+                return; // Filter chain'i durdurmayalım ama bu request için authentication yapma
             } catch (RuntimeException e) {
                 // Tüm diğer JWT hatalarını yakala (signature mismatch dahil)
                 logger.warn("JWT Token doğrulama hatası: {}", e.getMessage());
+                return; // Filter chain'i durdurmayalım ama bu request için authentication yapma
             } catch (Exception e) {
                 logger.warn("JWT Token genel hatası: {}", e.getMessage());
+                return; // Filter chain'i durdurmayalım ama bu request için authentication yapma
             }
         } else {
             logger.debug("JWT Token Bearer ile başlamıyor");

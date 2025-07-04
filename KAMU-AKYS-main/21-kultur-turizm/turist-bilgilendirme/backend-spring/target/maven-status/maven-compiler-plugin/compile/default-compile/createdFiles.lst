@@ -15,6 +15,7 @@ gov\tr\kamu\turistbilgilendirme\model\Destination$VisitingInfo.class
 gov\tr\kamu\turistbilgilendirme\service\DestinationService$DestinationStats.class
 gov\tr\kamu\turistbilgilendirme\controller\UserController$ChangePasswordRequest.class
 gov\tr\kamu\turistbilgilendirme\security\JwtTokenUtil.class
+gov\tr\kamu\turistbilgilendirme\controller\DataInitController.class
 gov\tr\kamu\turistbilgilendirme\controller\UserController$ChangeRoleRequest.class
 gov\tr\kamu\turistbilgilendirme\repository\UserRepository.class
 gov\tr\kamu\turistbilgilendirme\model\Destination$Image.class
