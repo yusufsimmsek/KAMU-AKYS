@@ -7,28 +7,28 @@ const destinations = [
     id: 1,
     title: "Kapadokya",
     location: "Nevşehir, Türkiye",
-    image: "/images/1.jpg",
+    image: "https://images.unsplash.com/photo-1624714217530-0e72ea4c6b0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     category: "Tarih & Kültür"
   },
   {
     id: 2,
     title: "Pamukkale",
     location: "Denizli, Türkiye", 
-    image: "/images/2.jpg",
+    image: "https://images.unsplash.com/photo-1583055942906-c9bc0d2d4b2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     category: "Doğa"
   },
   {
     id: 3,
     title: "Antalya",
     location: "Antalya, Türkiye",
-    image: "/images/3.jpg",
+    image: "https://images.unsplash.com/photo-1539650116574-75c0c6d0dd4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     category: "Deniz & Plaj"
   },
   {
     id: 4,
     title: "İstanbul",
     location: "İstanbul, Türkiye",
-    image: "/images/4.jpg",
+    image: "/images/galata-tower.jpg",
     category: "Metropol",
     hasButton: true,
   },
@@ -39,7 +39,7 @@ const HeroSection = () => {
     <section 
       className="w-full min-h-screen bg-cover bg-center text-white relative" 
       style={{ 
-        backgroundImage: "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('/images/bg.jpg')"
+        backgroundImage: "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('/images/galata-tower.jpg')"
       }}
     >
       {/* Content */}
@@ -56,7 +56,7 @@ const HeroSection = () => {
             <Search className="w-4 h-4 text-white/70 mr-2" />
             <input
               type="text"
-              placeholder="Destinasyon veya etkinlik ara..."
+                              placeholder="Gezilecek yer veya etkinlik ara..."
               className="bg-transparent text-white placeholder-white/70 outline-none w-full"
             />
           </div>
@@ -70,7 +70,7 @@ const HeroSection = () => {
         {/* Navigation */}
         <nav className="flex justify-center space-x-4 md:space-x-8 py-4 border-b border-white/10 text-sm bg-black/20 backdrop-blur-sm">
           <Link to="/about" className="hover:text-cyan-400 transition-colors px-3 py-2 rounded-full hover:bg-white/10">Hakkımızda</Link>
-          <Link to="/destinations" className="hover:text-cyan-400 transition-colors px-3 py-2 rounded-full hover:bg-white/10">Destinasyonlar</Link>
+                          <Link to="/destinations" className="hover:text-cyan-400 transition-colors px-3 py-2 rounded-full hover:bg-white/10">Gezilecek Yerler</Link>
           <Link to="/events" className="hover:text-cyan-400 transition-colors px-3 py-2 rounded-full hover:bg-white/10">Etkinlikler</Link>
           <Link to="/accommodations" className="hover:text-cyan-400 transition-colors px-3 py-2 rounded-full hover:bg-white/10">Konaklama</Link>
           <Link to="/contact" className="hover:text-cyan-400 transition-colors px-3 py-2 rounded-full hover:bg-white/10">İletişim</Link>
@@ -85,7 +85,7 @@ const HeroSection = () => {
             </span>
           </h1>
           <p className="text-lg md:text-xl mb-8 text-white/90 max-w-2xl mx-auto leading-relaxed">
-            Kültür ve doğal güzelliklerle dolu ülkemizin büyüleyici destinasyonlarını keşfedin. 
+                            Kültür ve doğal güzelliklerle dolu ülkemizin büyüleyici gezilecek yerlerini keşfedin. 
             <br />
             <span className="text-cyan-300">Galata Kulesi'nden İstanbul'a uzanan bu yolculukta bize katılın.</span>
           </p>
@@ -96,7 +96,7 @@ const HeroSection = () => {
               className="group bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 inline-flex items-center justify-center shadow-2xl hover:shadow-cyan-500/25 hover:scale-105"
             >
               <MapPin className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-              Destinasyonları Keşfet
+                              Gezilecek Yerleri Keşfet
             </Link>
             
             <Link
@@ -109,7 +109,7 @@ const HeroSection = () => {
           </div>
           
           <div className="text-sm text-cyan-300 font-medium mb-12 animate-pulse">
-            ✨ Öne Çıkan Destinasyonlar ✨
+                            ✨ Öne Çıkan Gezilecek Yerler ✨
           </div>
         </div>
 

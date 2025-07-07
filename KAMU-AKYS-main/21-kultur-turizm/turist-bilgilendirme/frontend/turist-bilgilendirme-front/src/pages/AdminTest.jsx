@@ -49,16 +49,16 @@ const AdminTest = () => {
   const testActions = [
     {
       key: 'count',
-      title: 'Destinasyon Sayısını Getir',
-      description: 'Veritabanındaki toplam destinasyon sayısını kontrol eder',
+      title: 'Gezilecek Yer Sayısını Getir',
+      description: 'Veritabanındaki toplam gezilecek yer sayısını kontrol eder',
       endpoint: '/admin/data/destinations/count',
       method: 'GET',
       icon: Database
     },
     {
       key: 'all',
-      title: 'Tüm Destinasyonları Listele',
-      description: 'Veritabanındaki tüm destinasyonları getirir',
+      title: 'Tüm Gezilecek Yerleri Listele',
+      description: 'Veritabanındaki tüm gezilecek yerleri getirir',
       endpoint: '/admin/data/destinations/all',
       method: 'GET',
       icon: Eye

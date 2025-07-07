@@ -1,22 +1,13 @@
-import { Loader2 } from 'lucide-react';
+import React from 'react';
 
-const LoadingSpinner = ({ size = 'default', className = '', text = 'Yükleniyor...' }) => {
-  const sizeClasses = {
-    small: 'w-4 h-4',
-    default: 'w-8 h-8',
-    large: 'w-12 h-12',
-    xl: 'w-16 h-16'
-  };
-
-  return (
-    <div className={`flex flex-col items-center justify-center ${className}`}>
-      <Loader2 className={`${sizeClasses[size]} text-primary-600 animate-spin`} />
-      {text && (
-        <p className="mt-2 text-gray-600 text-sm">{text}</p>
-      )}
+const LoadingSpinner = ({ text = 'Yükleniyor...' }) => (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
+    <div className="flex flex-col items-center">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-500 border-opacity-60"></div>
+      <span className="mt-6 text-lg text-white font-semibold drop-shadow-lg animate-pulse">{text}</span>
     </div>
-  );
-};
+  </div>
+);
 
 // Full screen loading component
 export const FullScreenLoader = ({ text = 'Yükleniyor...' }) => {
@@ -39,7 +30,7 @@ export const PageLoader = ({ text = 'Sayfa yükleniyor...' }) => {
 // Button loading component
 export const ButtonLoader = ({ className = '' }) => {
   return (
-    <Loader2 className={`w-4 h-4 animate-spin ${className}`} />
+    <div className="animate-spin h-4 w-4 border-t-4 border-b-4 border-purple-500 border-opacity-60"></div>
   );
 };
 

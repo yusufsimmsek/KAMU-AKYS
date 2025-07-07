@@ -43,7 +43,7 @@ const RestaurantDetail = () => {
       {/* Hero Image */}
       <div className="relative h-96 md:h-[400px] overflow-hidden">
         <img
-          src={restaurant.images?.[0] || '/images/placeholder-restaurant.jpg'}
+                        src={restaurant.images?.[0] || 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400'}
           alt={restaurant.name}
           className="w-full h-full object-cover"
         />

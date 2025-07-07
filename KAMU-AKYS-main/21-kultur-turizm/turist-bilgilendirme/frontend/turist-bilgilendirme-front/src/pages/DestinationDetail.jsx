@@ -5,6 +5,7 @@ import { destinationsAPI, reviewsAPI, weatherAPI } from '../services/api';
 import { MapPin, Star, Clock, Camera, Heart, Share2, Calendar, Users } from 'lucide-react';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 import { formatDate, generateStars, truncateText } from '../utils';
+import ImageGallery from '../components/common/ImageGallery';
 
 const DestinationDetail = () => {
   const { id } = useParams();
@@ -46,7 +47,7 @@ const DestinationDetail = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner text="Destinasyon yükleniyor..." />
+        <LoadingSpinner text="Gezilecek yer yükleniyor..." />
       </div>
     );
   }
@@ -56,10 +57,10 @@ const DestinationDetail = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
-            Destinasyon bulunamadı
+            Gezilecek yer bulunamadı
           </h1>
           <Link to="/destinations" className="text-primary-600 hover:text-primary-700">
-            Destinasyonlara geri dön
+            Gezilecek yerlere geri dön
           </Link>
         </div>
       </div>
@@ -72,44 +73,15 @@ const DestinationDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Image Gallery */}
-      <div className="relative h-96 md:h-[500px] overflow-hidden">
-        {images.length > 0 ? (
-          <>
-            <img
-              src={images[activeImageIndex]}
-              alt={destination.name.tr}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-20" />
-            
-            {/* Image Navigation */}
-            {images.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                {images.slice(0, 5).map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveImageIndex(index)}
-                    className={`w-3 h-3 rounded-full ${
-                      index === activeImageIndex ? 'bg-white' : 'bg-white/50'
-                    }`}
-                  />
-                ))}
-                {images.length > 5 && (
-                  <button
-                    onClick={() => setShowAllImages(true)}
-                    className="bg-white/80 text-gray-900 px-3 py-1 rounded-full text-sm font-medium"
-                  >
-                    +{images.length - 5}
-                  </button>
-                )}
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="w-full h-full bg-gray-300 flex items-center justify-center">
-            <Camera className="w-16 h-16 text-gray-500" />
-          </div>
-        )}
+      <div className="relative">
+        <ImageGallery
+          query={`${destination.name.tr} ${destination.location.city}`}
+          category="tourism"
+          count={8}
+          showThumbnails={true}
+          showAttribution={false}
+          className="h-96 md:h-[500px]"
+        />
 
         {/* Action Buttons */}
         <div className="absolute top-4 right-4 flex space-x-2">
@@ -301,7 +273,7 @@ const DestinationDetail = () => {
                     >
                       <div className="flex space-x-3">
                         <img
-                          src={nearby.images?.[0] || '/images/placeholder-destination.jpg'}
+                          src={nearby.images?.[0] || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400'}
                           alt={nearby.name.tr}
                           className="w-12 h-12 rounded-lg object-cover"
                         />

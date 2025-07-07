@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Turist Bilgilendirme Sistemi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .gradient-card {
+      background: linear-gradient(135deg, rgba(103, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .gradient-purple {
+      background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+    }
+    .gradient-pink {
+      background: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
+    }
+    .gradient-cyan {
+      background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);
+    }
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .hover-scale {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-scale:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body class="font-sans bg-gray-900 text-white min-h-screen">
+
+  <!-- Navigation -->
+  <nav class="glass-effect fixed w-full top-0 z-50 p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 gradient-purple rounded-xl flex items-center justify-center">
+          <i class="fas fa-map-marked-alt text-white text-lg"></i>
+        </div>
+        <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          Turist Bilgilendirme
+        </h1>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#" class="text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2">
+          <i class="fas fa-home"></i>
+          <span>Ana Sayfa</span>
+        </a>
+        <a href="#" class="text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Destinasyonlar</span>
+        </a>
+        <a href="#" class="text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Etkinlikler</span>
+        </a>
+        <a href="#" class="text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2">
+          <i class="fas fa-utensils"></i>
+          <span>Restoranlar</span>
+        </a>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <button class="glass-effect px-4 py-2 rounded-lg text-sm hover:bg-white hover:bg-opacity-10 transition duration-300">
+          Giriş Yap
+        </button>
+        <button class="gradient-purple px-4 py-2 rounded-lg text-sm hover:shadow-lg transition duration-300">
+          Kayıt Ol
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center pt-20">
+    <div class="absolute inset-0 gradient-bg opacity-10"></div>
+    <img
+    src="public/galata-tower.jpg">
+    
+    <div class="relative z-10 text-center max-w-4xl mx-auto px-6">
+      <div class="mb-8">
+        <span class="inline-block glass-effect px-4 py-2 rounded-full text-sm text-blue-300 mb-6">
+          ✨ Yeni Keşif Deneyimi
+        </span>
+        <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+          <span class="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-400 bg-clip-text text-transparent">
+            Türkiye'yi
+          </span>
+          <br />
+          <span class="text-white">Keşfetmeye Hazır mısın?</span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Yapay zeka destekli kişiselleştirilmiş deneyimler, gerçek zamanlı bilgiler ve interaktif haritalarla unutulmaz bir seyahat planlayın.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+        <button class="gradient-purple px-8 py-4 rounded-xl font-semibold hover-scale">
+          <i class="fas fa-rocket mr-2"></i>
+          Keşfetmeye Başla
+        </button>
+        <button class="glass-effect px-8 py-4 rounded-xl font-semibold hover-scale">
+          <i class="fas fa-play mr-2"></i>
+          Demo İzle
+        </button>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        <div class="glass-effect p-6 rounded-2xl text-center hover-scale">
+          <div class="text-3xl font-bold gradient-purple bg-clip-text text-transparent">500+</div>
+          <div class="text-gray-400 text-sm">Destinasyon</div>
+        </div>
+        <div class="glass-effect p-6 rounded-2xl text-center hover-scale">
+          <div class="text-3xl font-bold gradient-pink bg-clip-text text-transparent">10K+</div>
+          <div class="text-gray-400 text-sm">Mutlu Ziyaretçi</div>
+        </div>
+        <div class="glass-effect p-6 rounded-2xl text-center hover-scale">
+          <div class="text-3xl font-bold gradient-cyan bg-clip-text text-transparent">24/7</div>
+          <div class="text-gray-400 text-sm">Destek</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Dashboard -->
+  <section class="py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">
+          <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            Akıllı Turizm Platformu
+          </span>
+        </h2>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+          Teknoloji ve deneyimin mükemmel birleşimi ile seyahatlerinizi bir üst seviyeye taşıyın.
+        </p>
+      </div>
+
+      <!-- Dashboard Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- AI Recommendations Card -->
+        <div class="gradient-card p-8 rounded-3xl hover-scale lg:col-span-2">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 gradient-purple rounded-xl flex items-center justify-center mr-4">
+              <i class="fas fa-brain text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">AI Öneri Motoru</h3>
+              <p class="text-gray-400 text-sm">Kişiselleştirilmiş deneyimler</p>
+            </div>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-center justify-between glass-effect p-4 rounded-xl">
+              <div class="flex items-center space-x-3">
+                <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=40&h=40&fit=crop&crop=face" 
+                     alt="Destination" class="w-10 h-10 rounded-lg object-cover">
+                <div>
+                  <div class="font-semibold text-sm">Kapadokya Balon Turu</div>
+                  <div class="text-gray-400 text-xs">95% Match</div>
+                </div>
+              </div>
+              <div class="text-green-400 text-sm">Önerilen</div>
+            </div>
+            
+            <div class="flex items-center justify-between glass-effect p-4 rounded-xl">
+              <div class="flex items-center space-x-3">
+                <img src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=40&h=40&fit=crop&crop=face" 
+                     alt="Destination" class="w-10 h-10 rounded-lg object-cover">
+                <div>
+                  <div class="font-semibold text-sm">Pamukkale Termaleri</div>
+                  <div class="text-gray-400 text-xs">88% Match</div>
+                </div>
+              </div>
+              <div class="text-blue-400 text-sm">Popüler</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weather Widget -->
+        <div class="gradient-card p-8 rounded-3xl hover-scale">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 gradient-cyan rounded-xl flex items-center justify-center mr-4">
+              <i class="fas fa-cloud-sun text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">Hava Durumu</h3>
+              <p class="text-gray-400 text-sm">Gerçek zamanlı</p>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <div class="text-4xl font-bold mb-2">24°</div>
+            <div class="text-gray-400 mb-4">İstanbul</div>
+            <div class="flex justify-between text-sm">
+              <span>Min: 18°</span>
+              <span>Max: 28°</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Map -->
+        <div class="gradient-card p-8 rounded-3xl hover-scale">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 gradient-pink rounded-xl flex items-center justify-center mr-4">
+              <i class="fas fa-map text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">İnteraktif Harita</h3>
+              <p class="text-gray-400 text-sm">3D görünüm</p>
+            </div>
+          </div>
+          
+          <div class="bg-gray-800 rounded-xl p-4 text-center">
+            <i class="fas fa-map-marked-alt text-4xl text-gray-600 mb-2"></i>
+            <div class="text-sm text-gray-400">Harita yükleniyor...</div>
+          </div>
+        </div>
+
+        <!-- Events Timeline -->
+        <div class="gradient-card p-8 rounded-3xl hover-scale lg:col-span-2">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 gradient-purple rounded-xl flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-alt text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">Yaklaşan Etkinlikler</h3>
+              <p class="text-gray-400 text-sm">Bu hafta</p>
+            </div>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+              <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <div class="flex-1">
+                <div class="font-semibold">İstanbul Müzik Festivali</div>
+                <div class="text-gray-400 text-sm">15 Mart - Harbiye Açık Hava</div>
+              </div>
+              <div class="text-blue-400 text-sm">2 gün</div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+              <div class="w-2 h-2 bg-pink-400 rounded-full"></div>
+              <div class="flex-1">
+                <div class="font-semibold">Kapadokya Fotoğraf Turu</div>
+                <div class="text-gray-400 text-sm">18 Mart - Gündoğumu</div>
+              </div>
+              <div class="text-pink-400 text-sm">5 gün</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12">
+        <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          Hızlı İşlemler
+        </span>
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <button class="glass-effect p-8 rounded-2xl text-center hover-scale group">
+          <div class="w-16 h-16 gradient-purple rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-search text-white text-2xl"></i>
+          </div>
+          <div class="font-semibold mb-2">Ara & Keşfet</div>
+          <div class="text-gray-400 text-sm">Destinasyon bul</div>
+        </button>
+        
+        <button class="glass-effect p-8 rounded-2xl text-center hover-scale group">
+          <div class="w-16 h-16 gradient-pink rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-heart text-white text-2xl"></i>
+          </div>
+          <div class="font-semibold mb-2">Favoriler</div>
+          <div class="text-gray-400 text-sm">Kayıtlı yerler</div>
+        </button>
+        
+        <button class="glass-effect p-8 rounded-2xl text-center hover-scale group">
+          <div class="w-16 h-16 gradient-cyan rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-route text-white text-2xl"></i>
+          </div>
+          <div class="font-semibold mb-2">Rota Planla</div>
+          <div class="text-gray-400 text-sm">Seyahat rotası</div>
+        </button>
+        
+        <button class="glass-effect p-8 rounded-2xl text-center hover-scale group">
+          <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-star text-white text-2xl"></i>
+          </div>
+          <div class="font-semibold mb-2">Değerlendir</div>
+          <div class="text-gray-400 text-sm">Deneyim paylaş</div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 py-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div>
+          <div class="flex items-center space-x-3 mb-6">
+            <div class="w-10 h-10 gradient-purple rounded-xl flex items-center justify-center">
+              <i class="fas fa-map-marked-alt text-white"></i>
+            </div>
+            <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Turist Bilgilendirme
+            </span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Türkiye'nin kültür ve turizm değerlerini teknoloji ile buluşturan yeni nesil platform.
+          </p>
+        </div>
+
+        <div>
+          <h6 class="font-semibold mb-4 text-white">Keşfet</h6>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Destinasyonlar</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Etkinlikler</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Kültür Rotaları</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Doğa Turları</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h6 class="font-semibold mb-4 text-white">Hizmetler</h6>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Konaklama</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Restoranlar</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Ulaşım</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Rehber Hizmetleri</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h6 class="font-semibold mb-4 text-white">Bağlantılar</h6>
+          <div class="flex space-x-4 mb-4">
+            <a href="#" class="w-10 h-10 glass-effect rounded-xl flex items-center justify-center hover:bg-white hover:bg-opacity-10 transition duration-300">
+              <i class="fab fa-twitter text-gray-400 hover:text-white"></i>
+            </a>
+            <a href="#" class="w-10 h-10 glass-effect rounded-xl flex items-center justify-center hover:bg-white hover:bg-opacity-10 transition duration-300">
+              <i class="fab fa-instagram text-gray-400 hover:text-white"></i>
+            </a>
+            <a href="#" class="w-10 h-10 glass-effect rounded-xl flex items-center justify-center hover:bg-white hover:bg-opacity-10 transition duration-300">
+              <i class="fab fa-youtube text-gray-400 hover:text-white"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400 text-sm">
+          © 2025 T.C. Kültür ve Turizm Bakanlığı. Tüm hakları saklıdır.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html> 

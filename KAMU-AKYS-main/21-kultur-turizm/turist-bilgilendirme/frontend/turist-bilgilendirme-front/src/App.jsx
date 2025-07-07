@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 
 // Context
 import { AuthProvider } from './contexts/AuthContext';
@@ -11,24 +12,29 @@ import { AuthProvider } from './contexts/AuthContext';
 import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
 import LoadingSpinner from './components/UI/LoadingSpinner';
+import Breadcrumb from './components/UI/Breadcrumb';
 
-// Pages
-import Home from './pages/Home';
-import Destinations from './pages/Destinations';
-import DestinationDetail from './pages/DestinationDetail';
-import Events from './pages/Events';
-import EventDetail from './pages/EventDetail';
-import Accommodations from './pages/Accommodations';
-import AccommodationDetail from './pages/AccommodationDetail';
-import Restaurants from './pages/Restaurants';
-import RestaurantDetail from './pages/RestaurantDetail';
-import Login from './pages/Auth/Login';
-import Register from './pages/Auth/Register';
-import Profile from './pages/Profile';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import AdminTest from './pages/AdminTest';
-import NotFound from './pages/NotFound';
+// Pages (code splitting)
+const Home = lazy(() => import('./pages/Home'));
+const Destinations = lazy(() => import('./pages/Destinations'));
+const DestinationDetail = lazy(() => import('./pages/DestinationDetail'));
+const Events = lazy(() => import('./pages/Events'));
+const EventDetail = lazy(() => import('./pages/EventDetail'));
+const Accommodations = lazy(() => import('./pages/Accommodations'));
+const AccommodationDetail = lazy(() => import('./pages/AccommodationDetail'));
+const Restaurants = lazy(() => import('./pages/Restaurants'));
+const RestaurantDetail = lazy(() => import('./pages/RestaurantDetail'));
+const Search = lazy(() => import('./pages/Search'));
+const Login = lazy(() => import('./pages/Auth/Login'));
+const Register = lazy(() => import('./pages/Auth/Register'));
+const Profile = lazy(() => import('./pages/Profile'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const AdminTest = lazy(() => import('./pages/AdminTest'));
+const ImageDemo = lazy(() => import('./pages/ImageDemo'));
+const GalataTower = lazy(() => import('./pages/GalataTower'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 
 // Styles
 import './App.css';
@@ -43,6 +49,53 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+function AppContent() {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+  return (
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col">
+      <Navbar />
+      {!isHome && <Breadcrumb />}
+      <main className="flex-grow">
+        <Suspense fallback={<LoadingSpinner text="Yükleniyor..." />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            {/* Search */}
+            <Route path="/search" element={<Search />} />
+            {/* Destinations */}
+            <Route path="/destinations" element={<Destinations />} />
+            <Route path="/destinations/:id" element={<DestinationDetail />} />
+            <Route path="/galata-tower" element={<GalataTower />} />
+            {/* Events */}
+            <Route path="/events" element={<Events />} />
+            <Route path="/events/:id" element={<EventDetail />} />
+            {/* Accommodations */}
+            <Route path="/accommodations" element={<Accommodations />} />
+            <Route path="/accommodations/:id" element={<AccommodationDetail />} />
+            {/* Restaurants */}
+            <Route path="/restaurants" element={<Restaurants />} />
+            <Route path="/restaurants/:id" element={<RestaurantDetail />} />
+            {/* Auth */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            {/* Admin */}
+            <Route path="/admin" element={<AdminPanel />} />
+            {/* Other */}
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin-test" element={<AdminTest />} />
+            <Route path="/image-demo" element={<ImageDemo />} />
+            {/* 404 */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </main>
+      <Footer />
+    </div>
+  );
+}
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,48 +116,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <HelmetProvider>
         <Router>
-          <div className="min-h-screen bg-gray-50 flex flex-col">
-            <Navbar />
-            
-            <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                
-                {/* Destinations */}
-                <Route path="/destinations" element={<Destinations />} />
-                <Route path="/destinations/:id" element={<DestinationDetail />} />
-                
-                {/* Events */}
-                <Route path="/events" element={<Events />} />
-                <Route path="/events/:id" element={<EventDetail />} />
-                
-                {/* Accommodations */}
-                <Route path="/accommodations" element={<Accommodations />} />
-                <Route path="/accommodations/:id" element={<AccommodationDetail />} />
-                
-                {/* Restaurants */}
-                <Route path="/restaurants" element={<Restaurants />} />
-                <Route path="/restaurants/:id" element={<RestaurantDetail />} />
-                
-                {/* Auth */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/profile" element={<Profile />} />
-                
-                {/* Other */}
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/admin-test" element={<AdminTest />} />
-                
-                {/* 404 */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            
-            <Footer />
-          </div>
-          
+            <AppContent />
           {/* Toast notifications */}
           <Toaster 
             position="top-right"
@@ -127,6 +141,7 @@ function App() {
             }}
           />
         </Router>
+        </HelmetProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </AuthProvider>
     </QueryClientProvider>

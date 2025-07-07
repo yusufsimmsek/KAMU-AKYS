@@ -47,7 +47,7 @@ const EventDetail = () => {
       {/* Hero Image */}
       <div className="relative h-96 md:h-[400px] overflow-hidden">
         <img
-          src={event.images?.[0] || '/images/placeholder-event.jpg'}
+                        src={event.images?.[0] || 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400'}
           alt={event.title.tr}
           className="w-full h-full object-cover"
         />

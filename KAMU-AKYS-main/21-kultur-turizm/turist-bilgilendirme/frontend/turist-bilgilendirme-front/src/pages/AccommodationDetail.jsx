@@ -50,7 +50,7 @@ const AccommodationDetail = () => {
       {/* Hero Image */}
       <div className="relative h-96 md:h-[400px] overflow-hidden">
         <img
-          src={accommodation.images?.[0] || '/images/placeholder-hotel.jpg'}
+                        src={accommodation.images?.[0] || 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400'}
           alt={accommodation.name}
           className="w-full h-full object-cover"
         />

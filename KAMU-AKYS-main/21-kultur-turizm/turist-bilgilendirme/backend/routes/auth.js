@@ -5,6 +5,8 @@ import User from '../models/User.js';
 import { config } from '../config/config.js';
 import { handleValidationErrors } from '../middleware/validation.js';
 import { authenticateToken } from '../middleware/auth.js';
+import pool from '../db';
+import bcrypt from 'bcrypt';
 
 const router = express.Router();
 
@@ -414,6 +416,52 @@ router.post('/logout', authenticateToken, async (req, res) => {
     success: true,
     message: 'Çıkış başarılı'
   });
+});
+
+// Admin rolü atama endpoint'i
+router.post('/make-admin', async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    // Kullanıcıyı bul
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'Kullanıcı bulunamadı' });
+    }
+
+    // Rolü admin olarak güncelle
+    user.role = 'admin';
+    await user.save();
+
+    res.json({ message: 'Kullanıcı admin rolüne yükseltildi', user });
+  } catch (error) {
+    res.status(500).json({ message: 'Sunucu hatası', error: error.message });
+  }
+});
+
+// Kullanıcı rolünü güncelle
+router.put('/update-role', async (req, res) => {
+  try {
+    const { email, role } = req.body;
+    
+    // Sadece admin kullanıcılar bu işlemi yapabilir
+    if (!req.user || req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Bu işlem için admin yetkisi gerekli' });
+    }
+
+    // Kullanıcı rolünü güncelle
+    const updateQuery = 'UPDATE users SET role = $1 WHERE email = $2 RETURNING *';
+    const result = await pool.query(updateQuery, [role, email]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Kullanıcı bulunamadı' });
+    }
+
+    res.json({ message: 'Kullanıcı rolü güncellendi', user: result.rows[0] });
+  } catch (error) {
+    console.error('Rol güncelleme hatası:', error);
+    res.status(500).json({ message: 'Sunucu hatası' });
+  }
 });
 
 export default router; 
